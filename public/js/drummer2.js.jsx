@@ -5,23 +5,45 @@ var Drummer2 = React.createClass({
   },
 
   componentDidMount: function (){
-    setInterval(this.startQueue,this.props.tempo * this.state.searchString.length);
   },
 
   handleChange: function(e) {
     this.setState({searchString:e.target.value});
+    this.state.searchString = e.target.value;
+    if(this.ready) {
+      this.startQueue();
+    }
+    if(!this.state.searchString) {
+      this.ready = true;
+    }
   },
+
+  ready: true,
+
+  currentLength: 0,
 
   startQueue: function () {
     var that = this;
-    this.state.searchString.split('').forEach(function(letter) {
-      setInterval(function () {
-        that.playAudio(letter);}, that.props.tempo);
+    this.ready = false;
+    var current = 0;
+    this.currentLength = this.state.searchString.length;
+    this.state.searchString.split('').forEach(function(letter, i) {
+      setTimeout(function () {
+        that.playAudio(letter,i);}, current);
+      current += that.props.tempo;
     }.bind(this));
   },
 
-  playAudio: function (letter) {
-
+  playAudio: function (letter,i) {
+    this.currentIndex = i;
+    AUDIOMAP[letter].pause();
+    AUDIOMAP[letter].currentTime = 0;
+    AUDIOMAP[letter].play();
+    var that = this;
+    if(i >= this.currentLength - 1) {
+      setTimeout(function () {
+        that.startQueue();}, that.props.tempo);
+    }
   },
 
   render: function () {
