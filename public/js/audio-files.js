@@ -27,3 +27,5 @@ kAudio.src = 'images/audio/k_audio.mp3';
 
 lAudio = new Audio ();
 lAudio.src = 'images/audio/l_audio.mp3';
+
+blankAudio = new Audio ();

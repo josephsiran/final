@@ -7,5 +7,6 @@ AUDIOMAP = {
   "H": hAudio,
   "J": jAudio,
   "K": kAudio,
-  "L": lAudio
+  "L": lAudio,
+  " ": blankAudio
 }

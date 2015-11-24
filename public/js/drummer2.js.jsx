@@ -8,13 +8,10 @@ var Drummer2 = React.createClass({
   },
 
   handleChange: function(e) {
-    this.setState({searchString:e.target.value});
     this.state.searchString = e.target.value;
+    this.setState({searchString:e.target.value});
     if(this.ready) {
       this.startQueue();
-    }
-    if(!this.state.searchString) {
-      this.ready = true;
     }
   },
 
@@ -32,6 +29,9 @@ var Drummer2 = React.createClass({
         that.playAudio(letter,i);}, current);
       current += that.props.tempo;
     }.bind(this));
+    if(this.state.searchString.length < 1) {
+      this.ready = true;
+    }
   },
 
   playAudio: function (letter,i) {
