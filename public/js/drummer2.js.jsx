@@ -1,5 +1,4 @@
 var Drummer2 = React.createClass({
-
   getInitialState: function(){
     return {searchString: ''};
   },
@@ -34,11 +33,25 @@ var Drummer2 = React.createClass({
     }
   },
 
+  isPlaying: function (audelem) {
+    return !audelem.paused;
+  },
+
+  rotateAudio: function (audios) {
+    if(audios[0] === blankAudio) {
+      return blankAudio;
+    }
+    for (var i = 0; i < audios.length; i++) {
+      if(!this.isPlaying(audios[i])) {
+        return audios[i];
+      }
+    }
+  },
+
   playAudio: function (letter,i) {
+    letter = letter.toLowerCase();
     this.currentIndex = i;
-    AUDIOMAP[letter].pause();
-    AUDIOMAP[letter].currentTime = 0;
-    AUDIOMAP[letter].play();
+    this.rotateAudio(AUDIOMAP[letter]).play();
     var that = this;
     if(i >= this.currentLength - 1) {
       setTimeout(function () {
@@ -57,6 +70,6 @@ var Drummer2 = React.createClass({
 });
 
 React.render(
-    <Drummer2 tempo={500}/>,
+    <Drummer2 tempo={TEMPO}/>,
     document.getElementById('my-component')
 );
