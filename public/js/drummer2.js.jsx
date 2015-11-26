@@ -4,6 +4,8 @@ var Drummer2 = React.createClass({
   },
 
   componentDidMount: function (){
+    initAudio('electro');
+    this.changeButtonColors('electro');
   },
 
   handleChange: function(e) {
@@ -26,7 +28,7 @@ var Drummer2 = React.createClass({
     this.state.searchString.split('').forEach(function(letter, i) {
       setTimeout(function () {
         that.playAudio(letter,i);}, current);
-      current += that.props.tempo;
+      current += TEMPO;
     }.bind(this));
     if(this.state.searchString.length < 1) {
       this.ready = true;
@@ -49,27 +51,47 @@ var Drummer2 = React.createClass({
   },
 
   playAudio: function (letter,i) {
+    if(!AUDIOMAP[letter]) {
+      letter = " ";
+    }
     letter = letter.toLowerCase();
     this.currentIndex = i;
     this.rotateAudio(AUDIOMAP[letter]).play();
     var that = this;
     if(i >= this.currentLength - 1) {
       setTimeout(function () {
-        that.startQueue();}, that.props.tempo);
+        that.startQueue();}, TEMPO);
     }
   },
 
+  currentGenre: "",
+
+  handleClick(genre) {
+    if(this.currentGenre != genre) {
+      initAudio(genre);
+      this.currentGenre = genre;
+      this.changeButtonColors(genre);
+    }
+  },
+
+  changeButtonColors: function (genre) {
+    GENRES.forEach(function(g){
+      $("." + g).css("background-color", "#DA0000");
+    });
+    $("." + genre).css("background-color", "#A70000");
+  },
+
   render: function () {
+    var that = this;
     return (
       <div>
-        <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here"></input>
+        <div className="buttons-container">
+          <button className="buttons electro" onClick={function(){that.handleClick("electro")}}>Electro</button>
+          <button className="buttons rock" onClick={function(){that.handleClick("rock")}}>Rock</button>
+        </div>
+          <textarea id="text-box" type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here"></textarea>
       </div>
     )
   }
 
 });
-
-React.render(
-    <Drummer2 tempo={TEMPO}/>,
-    document.getElementById('my-component')
-);

@@ -1,0 +1,36 @@
+html {
+  font-family: Verdana, sans-serif;
+  text-align: center;
+}
+
+textarea {
+  width: 60%;
+  height: 20%;
+  outline: none;
+  font-size: 1.5em;
+  font-family: Verdana, sans-serif;
+  border: 2px solid;
+  height: 7em;
+}
+
+.buttons-container {
+  margin: 20px;
+}
+
+.buttons {
+  height: 2em;
+  margin: 1em;
+  width: 7em;
+  margin-bottom: 0;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #DA0000;
+  color: white;
+  border: black solid 1px;
+  outline: none;
+  transition: background-color ease-in 100ms;
+}
+
+.buttons:active {
+  background-color: #A70000;
+}
