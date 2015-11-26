@@ -8,7 +8,7 @@ AUDIOMAP = {
 
 GENRES = ["rock","electro"];
 
-TEMPO = 400;
+TEMPO = 450;
 
 var createAudio = function(letter,genre) {
   dynamicString = letter + "Audio1 = new Audio ();" + letter +

@@ -1,6 +1,6 @@
 var Drummer2 = React.createClass({
   getInitialState: function(){
-    return {searchString: ''};
+    return {searchString: '', bpm: Math.floor(60000/TEMPO)};
   },
 
   componentDidMount: function (){
@@ -64,7 +64,7 @@ var Drummer2 = React.createClass({
     }
   },
 
-  currentGenre: "",
+  currentGenre: "electro",
 
   handleClick(genre) {
     if(this.currentGenre != genre) {
@@ -81,15 +81,32 @@ var Drummer2 = React.createClass({
     $("." + genre).css("background-color", "#A70000");
   },
 
+  tempoChange: function () {
+    TEMPO = this.nextTempo;
+    initAudio(this.currentGenre);
+  },
+
+  nextTempo: Math.floor(60000/TEMPO),
+
+  bpmChange: function () {
+    val = parseInt($("#temposlider").val());
+    this.nextTempo = 250 + (val - 100) * -2 + (val - 100) * -2;
+    this.setState({bpm: Math.floor(60000/this.nextTempo)});
+  },
+
   render: function () {
     var that = this;
     return (
-      <div>
+      <div className="container">
         <div className="buttons-container">
           <button className="buttons electro" onClick={function(){that.handleClick("electro")}}>Electro</button>
           <button className="buttons rock" onClick={function(){that.handleClick("rock")}}>Rock</button>
         </div>
           <textarea id="text-box" type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here"></textarea>
+        <div className="slider-container">
+          <input id="temposlider" type="range" defaultValue="50" onChange={this.bpmChange} onMouseUp={this.tempoChange}></input>
+        </div>
+        <div id="bpm">{this.state.bpm + " BPM"}</div>
       </div>
     )
   }
