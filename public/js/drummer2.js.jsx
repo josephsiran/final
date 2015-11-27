@@ -1,6 +1,6 @@
 var Drummer2 = React.createClass({
   getInitialState: function(){
-    return {searchString: '', bpm: Math.floor(60000/TEMPO)};
+    return {letterString: '', bpm: Math.floor(60000/TEMPO)};
   },
 
   componentDidMount: function (){
@@ -9,8 +9,8 @@ var Drummer2 = React.createClass({
   },
 
   handleChange: function(e) {
-    this.state.searchString = e.target.value;
-    this.setState({searchString:e.target.value});
+    this.state.letterString = e.target.value;
+    this.setState({letterString:e.target.value});
     if(this.ready) {
       this.startQueue();
     }
@@ -24,13 +24,13 @@ var Drummer2 = React.createClass({
     var that = this;
     this.ready = false;
     var current = 0;
-    this.currentLength = this.state.searchString.length;
-    this.state.searchString.split('').forEach(function(letter, i) {
+    this.currentLength = this.state.letterString.length;
+    this.state.letterString.split('').forEach(function(letter, i) {
       setTimeout(function () {
         that.playAudio(letter,i);}, current);
       current += TEMPO;
     }.bind(this));
-    if(this.state.searchString.length < 1) {
+    if(this.state.letterString.length < 1) {
       this.ready = true;
     }
   },
@@ -81,10 +81,6 @@ var Drummer2 = React.createClass({
     $("." + genre).css("background-color", "#A70000");
   },
 
-  tempoChange: function () {
-    // initAudio(this.currentGenre);
-  },
-
   nextTempo: Math.floor(60000/TEMPO),
 
   bpmChange: function () {
@@ -101,9 +97,9 @@ var Drummer2 = React.createClass({
           <button className="buttons electro" onClick={function(){that.handleClick("electro")}}>Electro</button>
           <button className="buttons rock" onClick={function(){that.handleClick("rock")}}>Rock</button>
         </div>
-          <textarea id="text-box" type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here"></textarea>
+          <textarea id="text-box" type="text" value={this.state.letterString} onChange={this.handleChange} placeholder="Type here"></textarea>
         <div className="slider-container">
-          <input id="temposlider" type="range" defaultValue="50" onChange={this.bpmChange} onMouseUp={this.tempoChange}></input>
+          <input id="temposlider" type="range" defaultValue="50" onChange={this.bpmChange}></input>
         </div>
         <div id="bpm">{this.state.bpm + " BPM"}</div>
       </div>
