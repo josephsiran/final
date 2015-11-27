@@ -82,16 +82,15 @@ var Drummer2 = React.createClass({
   },
 
   tempoChange: function () {
-    TEMPO = this.nextTempo;
-    initAudio(this.currentGenre);
+    // initAudio(this.currentGenre);
   },
 
   nextTempo: Math.floor(60000/TEMPO),
 
   bpmChange: function () {
     val = parseInt($("#temposlider").val());
-    this.nextTempo = 250 + (val - 100) * -2 + (val - 100) * -2;
-    this.setState({bpm: Math.floor(60000/this.nextTempo)});
+    TEMPO = 250 + (val - 100) * -2 + (val - 100) * -2;
+    this.setState({bpm: Math.floor(60000/TEMPO)});
   },
 
   render: function () {
