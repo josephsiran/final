@@ -1,6 +1,6 @@
 var Drummer2 = React.createClass({
   getInitialState: function(){
-    return {letterString: '', bpm: Math.floor(60000/TEMPO)};
+    return {inputString: '', bpm: Math.floor(60000/TEMPO)};
   },
 
   componentDidMount: function (){
@@ -9,8 +9,8 @@ var Drummer2 = React.createClass({
   },
 
   handleChange: function(e) {
-    this.state.letterString = e.target.value;
-    this.setState({letterString:e.target.value});
+    this.state.inputString = e.target.value;
+    this.setState({inputString:e.target.value});
     if(this.ready) {
       this.startQueue();
     }
@@ -24,13 +24,13 @@ var Drummer2 = React.createClass({
     var that = this;
     this.ready = false;
     var current = 0;
-    this.currentLength = this.state.letterString.length;
-    this.state.letterString.split('').forEach(function(letter, i) {
+    this.currentLength = this.state.inputString.length;
+    this.state.inputString.toLowerCase().split('').forEach(function(letter, i) {
       setTimeout(function () {
         that.playAudio(letter,i);}, current);
       current += TEMPO;
     }.bind(this));
-    if(this.state.letterString.length < 1) {
+    if(this.state.inputString.length < 1) {
       this.ready = true;
     }
   },
@@ -97,7 +97,7 @@ var Drummer2 = React.createClass({
           <button className="buttons electro" onClick={function(){that.handleClick("electro")}}>Electro</button>
           <button className="buttons rock" onClick={function(){that.handleClick("rock")}}>Rock</button>
         </div>
-          <textarea id="text-box" type="text" value={this.state.letterString} onChange={this.handleChange} placeholder="Type here"></textarea>
+          <textarea id="text-box" type="text" value={this.state.inputString} onChange={this.handleChange} placeholder="Type here"></textarea>
         <div className="slider-container">
           <input id="temposlider" type="range" defaultValue="50" onChange={this.bpmChange}></input>
         </div>
