@@ -6,7 +6,7 @@ run lambda { |env|
   [
     200,
     {
-      'Content-Type'  => 'text/html',
+      'Content-Type'  => 'audio/mp3',
       'Cache-Control' => 'public, max-age=86400'
     },
     File.open('public/index.html', File::RDONLY)

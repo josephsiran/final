@@ -1,5 +1,5 @@
 $(function(){
-  var root = document.getElementById('my-component');
+  var root = document.getElementById('drummer');
   var RouteHandler = ReactRouter.RouteHandler;
   var Router = ReactRouter.Router;
   var Route = ReactRouter.Route;
