@@ -38,3 +38,19 @@ textarea {
 .buttons:active {
   background-color: #A70000;
 }
+
+.footer-container {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #3E6B70;
+  width: 100%;
+  font-family: Verdana;
+  color: #113033;
+}
+
+.footer-link {
+  color: #113033;
+}

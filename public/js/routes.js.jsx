@@ -9,6 +9,7 @@ $(function(){
       return (
           <div>
             {this.props.children}
+            <Footer/>
           </div>
       );
     }
